@@ -3,5 +3,5 @@ i b
 f c
 a = 3.1415929
 b = 4
-c = a + b + d - 3
+c = a + b + b - 3
 p c

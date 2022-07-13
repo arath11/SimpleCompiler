@@ -41,8 +41,12 @@ class Nodos:
             print(f'{tabs} {self.datos[i]}')
         #print(self.datos)
 
+   
+
     def codigo3(self):
         valido = True
+        codigo3Dir=''
+        print()
         print("Codigo 3 direcciónes")
         floats=[]
         ints=[]
@@ -64,42 +68,66 @@ class Nodos:
                 floats.append(self.datos[i].get('val'))
             elif self.datos[i].get('type')=='intdcl':
                 ints.append(self.datos[i].get('val'))
-
-        # print()
-        # print(arreglo)
-        # print()
+        # print(floats)
+        # print(ints)
         r=0
         for i in range(1,len(arreglo)+1):
-            #print(arreglo[-i])
             dividido=arreglo[-i].split(' ')
             if len(dividido)>3:
-                #todo meter a una cola y revisar 
+                #print(dividido)
+                sonFloats=False#revisar si son ints o floats, suponemos que son ints y buscamos si existe un float
+                for j in range(2,len(dividido),2):
+                    if dividido[j] in floats:
+                        sonFloats=True
+                    elif dividido[j] in ints:
+                        1
+                    else:
+                        try:
+                            int(dividido[j])
+                        except:
+                            sonFloats=True
+                #print(sonFloats)
+                if(sonFloats): #si encontro algun flotante cambiara los numeros de ints a floats
+                    for j in range(2,len(dividido),2):
+                        if not (dividido[j] in floats or dividido[j] in ints):
+                            try:
+                                dividido[j]=str(float(dividido[j]))
+                            except:
+                                1
+                
                 stack=[]
                 for j in dividido:
                     stack.append(j)
-                print(stack)
-
                 a1=stack.pop()
                 signo=stack.pop()
-                print(f'r{r}={stack.pop()}{signo}{a1}')
+                codigo3Dir+=f'r{r}={stack.pop()}{signo}{a1}\n'
                 r+=1
-                #print(stack[len(stack)-1])            
                 while(not (stack[len(stack)-1] == '=')):                    
                     signo=stack.pop()
-                    print(f'r{r}=r{r-1}{signo}{stack.pop()}')
+                    codigo3Dir+=(f'r{r}=r{r-1}{signo}{stack.pop()}\n')
                     r+=1
                 stack.pop()#signo de igual 
-                print(f'{stack.pop()}=r{r}')
+                codigo3Dir+=(f'{stack.pop()}=r{r}\n')
             else:
-                
-                    
-                
-                print(f'{dividido[0]} {dividido[1]} {dividido[2]}')
+                if not (dividido[0] in ints or dividido[0] in floats):#checar que el primero sea valor 
+                    valido=False
+                try:
+                    int(dividido[2])
+                except:
+                    try:
+                        float(dividido[2])
+                    except:
+                        if not (dividido[2] in ints or dividido[2] in floats):
+                            valido=False                    
+                codigo3Dir+=(f'{dividido[0]} {dividido[1]} {dividido[2]}\n')
+        if valido:
+            print(codigo3Dir)
+        else:
+            print('Error semantico')
+        return 1       
 
-            
-        return 1
+    
 
-        
 def main():
     prueba=Nodos()
     a={'type':'float'}
