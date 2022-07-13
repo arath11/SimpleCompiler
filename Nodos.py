@@ -100,18 +100,39 @@ class Nodos:
                     stack.append(j)
                 a1=stack.pop()
                 signo=stack.pop()
+                
+                try:#checar que el segundo sea un valor o una variable valida 
+                    int(a1)
+                except:
+                    try:
+                        float(a1)
+                    except:
+                        if not (a1 in ints or a1 in floats):
+                            valido=False                    
+                
                 codigo3Dir+=f'r{r}={stack.pop()}{signo}{a1}\n'
                 r+=1
                 while(not (stack[len(stack)-1] == '=')):                    
                     signo=stack.pop()
-                    codigo3Dir+=(f'r{r}=r{r-1}{signo}{stack.pop()}\n')
+                    a1=stack.pop()
+
+                    try:#checar que el segundo sea un valor o una variable valida 
+                        int(a1)
+                    except:
+                        try:
+                            float(a1)
+                        except:
+                            if not (a1 in ints or a1 in floats):
+                                valido=False                    
+
+                    codigo3Dir+=(f'r{r}=r{r-1}{signo}{a1}\n')
                     r+=1
                 stack.pop()#signo de igual 
                 codigo3Dir+=(f'{stack.pop()}=r{r}\n')
             else:
                 if not (dividido[0] in ints or dividido[0] in floats):#checar que el primero sea valor 
                     valido=False
-                try:
+                try:#checar que el segundo sea un valor o una variable valida 
                     int(dividido[2])
                 except:
                     try:
