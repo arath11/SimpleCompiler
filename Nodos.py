@@ -55,9 +55,9 @@ class Nodos:
         for i in range(len(self.datos)-1,-1,-1):
             if(self.datos[i].get('type')=='assign' or self.datos[i].get('type')=='plus' or self.datos[i].get('type')=='minus'):
                 if(self.datos[i].get('type')=='plus'):
-                    string=string+" + "+self.datos[i].get('val')
+                    string=" + "+self.datos[i].get('val')+string
                 elif(self.datos[i].get('type')=='minus'):
-                    string=string+" + "+self.datos[i].get('val')
+                    string=" + "+self.datos[i].get('val')+string
                 elif(self.datos[i].get('type')=='assign'):
                     string=self.datos[i].get('val')+" = "+ self.datos[i].get('val1')+string
                     arreglo.append(string)
@@ -98,6 +98,7 @@ class Nodos:
                 stack=[]
                 for j in dividido:
                     stack.append(j)
+                #print(stack)
                 a1=stack.pop()
                 signo=stack.pop()
                 
